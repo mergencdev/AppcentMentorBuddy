@@ -20,7 +20,8 @@
             app:tabInlineLabel="true"
             app:tabMode="fixed"
             app:tabTextAppearance="@style/AppcentMBTheme"
-            app:tabTextColor="@color/myGrey" />
+            app:tabTextColor="@color/myGrey"
+            app:tabIconTint="@color/myGrey"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
