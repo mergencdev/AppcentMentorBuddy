@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067595294823",
+    "project_id": "appcentmentorbudy",
+    "storage_bucket": "appcentmentorbudy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067595294823:android:f4b2f777f07e2d997e8cc2",
+        "android_client_info": {
+          "package_name": "com.mergenc.appcentmentorbudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067595294823-1b2687jtm6np8cmp0qpcm6lt1aedhba5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC3In7gogvgOYs5Oo1HvkQG2eODEBJh1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067595294823-1b2687jtm6np8cmp0qpcm6lt1aedhba5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
