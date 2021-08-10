@@ -1,11 +1,16 @@
-package com.mergenc.appcentmentorbudy
+package com.mergenc.appcentmentorbudy.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import androidx.fragment.app.FragmentTransaction
+import com.mergenc.appcentmentorbudy.R
 import com.mergenc.appcentmentorbudy.adapter.ViewPagerAdapter
 import com.mergenc.appcentmentorbudy.fragment.FeedFragment
 import com.mergenc.appcentmentorbudy.fragment.TrashFragment
+import com.mergenc.appcentmentorbudy.fragment.UploadFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_feed.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

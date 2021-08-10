@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.FeedFragment">
@@ -44,7 +45,7 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
+            android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -54,8 +55,8 @@
             android:clickable="true"
             android:contentDescription="@string/add_image"
             android:focusable="true"
-            app:backgroundTint="@color/myRed"
-            android:src="@drawable/my_plus"/>
+            android:src="@drawable/my_plus"
+            app:backgroundTint="@color/myRed" />
 
 
     </RelativeLayout>
