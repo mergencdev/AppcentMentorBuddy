@@ -33,6 +33,8 @@ class UploadActivity : AppCompatActivity() {
         setContentView(view)
 
         registerLauncher()
+
+        imageView.clipToOutline = true
     }
 
     fun uploadImage(view: View) {
@@ -67,6 +69,8 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
+    // I'm getting permission to access the gallery and get image from gallery
+
     private fun registerLauncher() {
         activityResultLauncher =
                 // StartActivityForResult function in registerForActivityResult;
@@ -79,6 +83,9 @@ class UploadActivity : AppCompatActivity() {
                         selectedImage?.let {
                             binding.imageView.setImageURI(it)
 
+                            // for image round;
+                            // src: https://stackoverflow.com/questions/2459916/how-to-make-an-imageview-with-rounded-corners
+                            imageView.clipToOutline = true
                             // if image selected, make invisible "Select image" text;
                             textViewSelectImage.visibility = View.INVISIBLE
                         }

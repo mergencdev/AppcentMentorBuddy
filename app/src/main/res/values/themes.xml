@@ -17,4 +17,14 @@
     <style name="AppcentMBTheme" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">10sp</item>
     </style>
+
+    <style name="roundImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="color">@color/myGrey</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+
+    </style>
 </resources>

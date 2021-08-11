@@ -6,16 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".activity.UploadActivity">
 
-    <ImageView
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewImageView"
+        android:layout_width="275dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/myGrey"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:cropToPadding="true"
+            android:onClick="uploadImage"
+
+            android:outlineProvider="background"
+            android:src="@drawable/image_gallery"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <!--
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="50dp"
+        android:adjustViewBounds="true"
         android:onClick="uploadImage"
         android:src="@drawable/image_gallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundImageView">
+
+    </com.google.android.material.imageview.ShapeableImageView> -->
+
+
 
     <EditText
         android:id="@+id/editTextTitle"
@@ -27,7 +65,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewImageView" />
 
     <EditText
         android:id="@+id/editTextTextDescription"
@@ -48,6 +86,8 @@
         android:layout_marginTop="30dp"
         android:text="@string/upload_button"
         android:textAllCaps="false"
+        android:background="@color/myRed"
+        android:textColor="@color/myGrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextDescription" />
@@ -61,6 +101,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
