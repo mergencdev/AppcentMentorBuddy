@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,6 +27,7 @@ import com.mergenc.appcentmentorbudy.databinding.ActivityUploadBinding
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.activity_upload.imageView
 import kotlinx.android.synthetic.main.fragment_feed.*
+import java.util.*
 import java.util.jar.Manifest
 
 class UploadActivity : AppCompatActivity() {
@@ -61,14 +63,38 @@ class UploadActivity : AppCompatActivity() {
         // Feed available now;
         //feedLinearLayout.visibility = View.INVISIBLE
 
-        val referance = storage.reference
-        val imageReferance = referance.child("images/image.jpg")
-        Toast.makeText(this, "pressed", Toast.LENGTH_SHORT).show()
+        // Universal Unique ID;
+        val uuid = UUID.randomUUID()
+        val imageName = "$uuid.jpg"
+
+
+        val reference = storage.reference
+        val imageReferance = reference.child("images").child(imageName)
+        //Toast.makeText(this, "pressed", Toast.LENGTH_SHORT).show()
 
 
         if (selectedImage != null) {
             imageReferance.putFile(selectedImage!!).addOnSuccessListener {
                 // Download url to firestore;
+                val uploadedImageReference = storage.reference.child("images").child(imageName)
+                uploadedImageReference.downloadUrl.addOnSuccessListener {
+                    val downloadURL = it.toString() // Image URL;
+
+                    val galleryMap = hashMapOf<String, Any>()
+                    galleryMap.put("downloadURL", downloadURL)
+                    galleryMap.put("title", binding.editTextTitle.text.toString())
+                    galleryMap.put("description", binding.editTextTextDescription.text.toString())
+                    galleryMap.put("date", Timestamp.now())
+
+                    firestore.collection("Images").add(galleryMap).addOnSuccessListener {
+                        Toast.makeText(this, "Uploaded succesfully.", Toast.LENGTH_SHORT).show()
+                        finish()
+
+                    }.addOnFailureListener {
+                        Toast.makeText(this@UploadActivity, it.localizedMessage, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
 
             }.addOnFailureListener {
                 Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT).show()
