@@ -2,6 +2,7 @@ package com.mergenc.appcentmentorbudy.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,9 +14,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.mergenc.appcentmentorbudy.R
 import com.mergenc.appcentmentorbudy.databinding.ActivityUploadBinding
 import kotlinx.android.synthetic.main.activity_upload.*
+import kotlinx.android.synthetic.main.activity_upload.imageView
+import kotlinx.android.synthetic.main.fragment_feed.*
 import java.util.jar.Manifest
 
 class UploadActivity : AppCompatActivity() {
@@ -24,6 +34,10 @@ class UploadActivity : AppCompatActivity() {
     private lateinit var permLauncher: ActivityResultLauncher<String>
 
     var selectedImage: Uri? = null
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +49,52 @@ class UploadActivity : AppCompatActivity() {
         registerLauncher()
 
         imageView.clipToOutline = true
+
+        auth = Firebase.auth
+        firestore = Firebase.firestore
+        storage = Firebase.storage
     }
 
+    // Upload button onClick ("Upload");
+    fun upload(view: View) {
+        // Make "No feed available." text invisible.
+        // Feed available now;
+        //feedLinearLayout.visibility = View.INVISIBLE
+
+        val referance = storage.reference
+        val imageReferance = referance.child("images/image.jpg")
+        Toast.makeText(this, "pressed", Toast.LENGTH_SHORT).show()
+
+
+        if (selectedImage != null) {
+            imageReferance.putFile(selectedImage!!).addOnSuccessListener {
+                // Download url to firestore;
+
+            }.addOnFailureListener {
+                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Camera button onClick;
+    fun camera(view: View) {
+        val intentToCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intentToCamera, 42)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 42) {
+            if (data != null) {
+                val bitmapFromCamera = data.extras?.get("data") as Bitmap
+                imageView.setImageBitmap(bitmapFromCamera)
+            }
+
+        }
+    }
+
+    // Floating Action Button onClick ("+");
     fun uploadImage(view: View) {
         // if the permission is not granted;
         if (ContextCompat.checkSelfPermission(

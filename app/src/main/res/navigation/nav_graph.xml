@@ -11,12 +11,16 @@
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
         <action
-            android:id="@+id/action_feedFragment_to_uploadFragment"
-            app:destination="@id/uploadFragment" />
+            android:id="@+id/action_feedFragment_to_trashFragment"
+            app:destination="@id/trashFragment" />
     </fragment>
     <fragment
-        android:id="@+id/uploadFragment"
-        android:name="com.mergenc.appcentmentorbudy.fragment.UploadFragment"
-        android:label="fragment_upload"
-        tools:layout="@layout/fragment_upload" />
+        android:id="@+id/trashFragment"
+        android:name="com.mergenc.appcentmentorbudy.fragment.TrashFragment"
+        android:label="fragment_trash"
+        tools:layout="@layout/fragment_trash" >
+        <action
+            android:id="@+id/action_trashFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
 </navigation>

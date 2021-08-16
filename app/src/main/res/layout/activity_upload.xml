@@ -12,18 +12,19 @@
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:layout_marginTop="50dp"
-        app:cardCornerRadius="20dp"
         app:cardBackgroundColor="@color/myGrey"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:id="@+id/imageView"
-            android:layout_gravity="center"
             android:layout_width="250dp"
             android:layout_height="250dp"
+            android:layout_gravity="center"
             android:cropToPadding="true"
             android:onClick="uploadImage"
 
@@ -34,7 +35,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.cardview.widget.CardView>
-
 
 
     <!--
@@ -54,13 +54,12 @@
     </com.google.android.material.imageview.ShapeableImageView> -->
 
 
-
     <EditText
         android:id="@+id/editTextTitle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginTop="50dp"
+        android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,18 +78,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/upload_button"
-        android:textAllCaps="false"
-        android:background="@color/myRed"
-        android:textColor="@color/myGrey"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextDescription"
+        android:layout_marginTop="30dp">
+
+        <ImageButton
+            android:id="@+id/cameraButton"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:onClick="camera"
+            android:background="@color/myRed"
+            android:src="@android:drawable/ic_menu_camera"
+            android:textAllCaps="false"
+            android:textColor="@color/myGrey"
+            tools:layout_editor_absoluteX="264dp"
+            tools:layout_editor_absoluteY="539dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:background="@color/myRed"
+            android:text="@string/upload_button"
+            android:onClick="upload"
+            android:textAllCaps="false"
+            android:textColor="@color/myGrey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextDescription" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewSelectImage"
