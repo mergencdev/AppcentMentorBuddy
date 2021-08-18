@@ -2,11 +2,11 @@ package com.mergenc.appcentmentorbudy.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Adapter
+//import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.mergenc.appcentmentorbudy.R
 import com.mergenc.appcentmentorbudy.activity.UploadActivity
 import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
@@ -31,6 +32,7 @@ class FeedFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
 
     private lateinit var galleryImageArrayList: ArrayList<GalleryImage>
+    private lateinit var tempGalleryImageArrayList: ArrayList<GalleryImage>
 
     private lateinit var imageAdapter: RecyclerViewAdapter
 
@@ -41,8 +43,7 @@ class FeedFragment : Fragment() {
         db = Firebase.firestore
 
         galleryImageArrayList = ArrayList<GalleryImage>()
-
-
+        tempGalleryImageArrayList = ArrayList<GalleryImage>()
     }
 
     override fun onCreateView(
@@ -51,6 +52,8 @@ class FeedFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_feed, container, false)
+
+        setHasOptionsMenu(true)
 
         binding = FragmentFeedBinding.inflate(layoutInflater)
         return binding.root
@@ -70,7 +73,7 @@ class FeedFragment : Fragment() {
         binding.recyclerView.layoutManager =
             GridLayoutManager(requireActivity(), 2, RecyclerView.VERTICAL, false)
 
-        imageAdapter = RecyclerViewAdapter(galleryImageArrayList)
+        imageAdapter = RecyclerViewAdapter(tempGalleryImageArrayList)
         binding.recyclerView.adapter = imageAdapter
     }
 
@@ -107,12 +110,53 @@ class FeedFragment : Fragment() {
                                 galleryImageArrayList.add(galleryImage)
                             }
 
+                            // Search;
+                            tempGalleryImageArrayList.addAll(galleryImageArrayList)
+
                             // data updated, show new one;
                             imageAdapter.notifyDataSetChanged()
                         }
                     }
                 }
             }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_item, menu)
+
+        val item = menu.findItem(R.id.search_action)
+        val searcView = item.actionView as SearchView
+        searcView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            // When the text on the search bar changed, this fun run;
+            override fun onQueryTextChange(newText: String?): Boolean {
+                tempGalleryImageArrayList.clear()
+                val searchText = newText!!.lowercase(Locale.getDefault())
+
+                if (searchText.isNotEmpty()) {
+                    galleryImageArrayList.forEach {
+                        if (it.title.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                            tempGalleryImageArrayList.add(it)
+                        }
+                    }
+
+                    imageAdapter.notifyDataSetChanged()
+                } else {
+                    tempGalleryImageArrayList.clear()
+                    tempGalleryImageArrayList.addAll(galleryImageArrayList)
+
+                    imageAdapter.notifyDataSetChanged()
+                }
+
+                return false
+            }
+
+        })
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }
