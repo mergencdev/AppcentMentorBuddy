@@ -27,7 +27,6 @@
             android:layout_gravity="center"
             android:cropToPadding="true"
             android:onClick="uploadImage"
-
             android:outlineProvider="background"
             android:src="@drawable/image_gallery"
             app:layout_constraintEnd_toEndOf="parent"
