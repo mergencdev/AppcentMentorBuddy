@@ -120,7 +120,7 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
-    // Floating Action Button onClick ("+");
+    // Gallery button onClick ("Select Image");
     fun uploadImage(view: View) {
         // if the permission is not granted;
         if (ContextCompat.checkSelfPermission(
@@ -128,7 +128,6 @@ class UploadActivity : AppCompatActivity() {
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            //
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -152,7 +151,6 @@ class UploadActivity : AppCompatActivity() {
             activityResultLauncher.launch(intentToGallery)
         }
     }
-
     // I'm getting permission to access the gallery and get image from gallery
 
     private fun registerLauncher() {
