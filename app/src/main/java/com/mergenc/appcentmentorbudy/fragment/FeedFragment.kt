@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mergenc.appcentmentorbudy.activity.UploadActivity
@@ -74,37 +75,44 @@ class FeedFragment : Fragment() {
     }
 
     private fun getData() {
-        db.collection("Images").addSnapshotListener { value, error ->
+        // orderBy("date", Query.Direction.ASCENDING) function can sort images by date;
+        db.collection("Images").orderBy("date", Query.Direction.ASCENDING)
+            .addSnapshotListener { value, error ->
 
-            if (error != null) {
-                Toast.makeText(requireActivity(), error.localizedMessage, Toast.LENGTH_SHORT).show()
-            } else {
-                if (value != null) {
-                    if (!value.isEmpty) {
-                        // Make "No feed available." text invisible;
-                        // Feed available now;
-                        feedLinearLayout.visibility = View.INVISIBLE
+                if (error != null) {
+                    Toast.makeText(requireActivity(), error.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    if (value != null) {
+                        if (!value.isEmpty) {
+                            // Make "No feed available." text invisible;
+                            // Feed available now;
+                            feedLinearLayout.visibility = View.INVISIBLE
 
-                        val documents = value.documents
+                            val documents = value.documents
 
-                        for (document in documents) {
-                            //val date = document.get("date") as Date // Error on this line;
-                            val description = document.get("description") as String
-                            val imageURL = document.get("downloadURL") as String
-                            val title = document.get("title") as String
+                            // Clear arraylist to avoid image duplications;
+                            galleryImageArrayList.clear()
 
-                            println(description)
+                            for (document in documents) {
+                                //val date = document.get("date") as Date // Error on this line;
+                                val description = document.get("description") as String
+                                val imageURL = document.get("downloadURL") as String
+                                val title = document.get("title") as String
 
-                            val galleryImage = GalleryImage(/*date,*/ description, imageURL, title)
-                            galleryImageArrayList.add(galleryImage)
+                                println(description)
+
+                                val galleryImage =
+                                    GalleryImage(/*date,*/ description, imageURL, title)
+                                galleryImageArrayList.add(galleryImage)
+                            }
+
+                            // data updated, show new one;
+                            imageAdapter.notifyDataSetChanged()
                         }
-
-                        // data updated, show new one;
-                        imageAdapter.notifyDataSetChanged()
                     }
                 }
             }
-        }
     }
 
 }

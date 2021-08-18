@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mergenc.appcentmentorbudy.databinding.ImagesRowBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import com.squareup.picasso.Picasso
 
 class RecyclerViewAdapter(private val imageList: ArrayList<GalleryImage>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ImageHolder>() {
@@ -25,7 +26,10 @@ class RecyclerViewAdapter(private val imageList: ArrayList<GalleryImage>) :
         holder.binding.textViewTitleRow.text = imageList.get(position).title
         holder.binding.textViewDescriptionRow.text = imageList.get(position).description
 
-        // Image
+        // Image load to imageView thanks to the Picasso (it is great!);
+        // Source: https://github.com/square/picasso;
+        Picasso.get().load(imageList.get(position).imageURL).resize(500, 500)
+            .into(holder.binding.imageViewRow)
     }
 
     // returns our data list size;
