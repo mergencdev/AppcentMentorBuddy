@@ -90,13 +90,25 @@ class FeedFragment : Fragment() {
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 // Inflate dialog;
-                val mDialogView =Dialog(requireContext(), android.R.style.Theme_Material_NoActionBar)
+                val mDialogView =
+                    Dialog(requireContext(), android.R.style.Theme_Material_NoActionBar)
                 mDialogView.setContentView(R.layout.detailed_image)
 
                 Picasso.get().load(tempGalleryImageArrayList[position].imageURL).resize(1000, 1000)
                     .into(mDialogView.imageViewDetailed)
 
                 mDialogView.show()
+
+                var count = 1
+                mDialogView.imageViewDetailed.setOnClickListener {
+                    if (count % 2 != 0) {
+                        mDialogView.cardViewDeleteShare.visibility = View.GONE
+                        count += 1
+                    } else {
+                        mDialogView.cardViewDeleteShare.visibility = View.VISIBLE
+                        count = 1
+                    }
+                }
             }
         })
     }
