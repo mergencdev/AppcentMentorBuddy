@@ -75,4 +75,6 @@ dependencies {
 
     // Picasso implementation;
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation "com.afollestad.material-dialogs:core:3.1.0"
 }

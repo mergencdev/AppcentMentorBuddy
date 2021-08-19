@@ -3,22 +3,39 @@ package com.mergenc.appcentmentorbudy.adapter
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mergenc.appcentmentorbudy.databinding.ImagesRowBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
 import com.squareup.picasso.Picasso
 
-class RecyclerViewAdapter(private val imageList: ArrayList<GalleryImage>) :
-    RecyclerView.Adapter<RecyclerViewAdapter.ImageHolder>() {
+class RecyclerViewAdapter(
+    private val imageList: ArrayList<GalleryImage>
+) : RecyclerView.Adapter<RecyclerViewAdapter.ImageHolder>() {
 
-    class ImageHolder(val binding: ImagesRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    private lateinit var mListener : onItemClickListener
 
+    interface onItemClickListener {
+
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
+    }
+
+    class ImageHolder(val binding: ImagesRowBinding, listener: onItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val binding = ImagesRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ImageHolder(binding)
+        return ImageHolder(binding, mListener)
     }
 
     // bind ImageURL, title and description;

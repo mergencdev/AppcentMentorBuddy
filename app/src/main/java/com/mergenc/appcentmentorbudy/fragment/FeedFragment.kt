@@ -1,5 +1,6 @@
 package com.mergenc.appcentmentorbudy.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,7 +24,11 @@ import com.mergenc.appcentmentorbudy.activity.UploadActivity
 import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.details_dialog.*
+import kotlinx.android.synthetic.main.details_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.images_row.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -73,8 +79,30 @@ class FeedFragment : Fragment() {
         binding.recyclerView.layoutManager =
             GridLayoutManager(requireActivity(), 2, RecyclerView.VERTICAL, false)
 
-        imageAdapter = RecyclerViewAdapter(tempGalleryImageArrayList)
+        val adapter = RecyclerViewAdapter(tempGalleryImageArrayList)
+        imageAdapter = adapter
         binding.recyclerView.adapter = imageAdapter
+
+        // RecyclerView item on click function here;
+        adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                // Inflate dialog;
+                val mDialogView =
+                    LayoutInflater.from(requireContext()).inflate(R.layout.details_dialog, null)
+                // Dialog builder;
+                val mBuilder = AlertDialog.Builder(requireContext())
+                    .setView(mDialogView)
+                    .setTitle(tempGalleryImageArrayList[position].title)
+
+                val mAlertDialog = mBuilder.show()
+
+                Picasso.get().load(tempGalleryImageArrayList[position].imageURL).resize(500, 500)
+                    .into(mDialogView.imageViewDetails)
+                mDialogView.textViewTitleDetails.text = tempGalleryImageArrayList[position].title
+                mDialogView.textViewDescriptionDetails.text = tempGalleryImageArrayList[position].description
+            }
+
+        })
     }
 
     private fun getData() {
@@ -96,6 +124,7 @@ class FeedFragment : Fragment() {
 
                             // Clear arraylist to avoid image duplications;
                             galleryImageArrayList.clear()
+                            tempGalleryImageArrayList.clear()
 
                             for (document in documents) {
                                 //val date = document.get("date") as Date // Error on this line;
@@ -103,7 +132,7 @@ class FeedFragment : Fragment() {
                                 val imageURL = document.get("downloadURL") as String
                                 val title = document.get("title") as String
 
-                                println(description)
+                                //println(description)
 
                                 val galleryImage =
                                     GalleryImage(/*date,*/ description, imageURL, title)
@@ -138,7 +167,7 @@ class FeedFragment : Fragment() {
 
                 if (searchText.isNotEmpty()) {
                     galleryImageArrayList.forEach {
-                        if (it.title.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                        if (it.title.lowercase(Locale.getDefault()).contains(searchText)) {
                             tempGalleryImageArrayList.add(it)
                         }
                     }
