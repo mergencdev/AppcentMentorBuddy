@@ -25,6 +25,9 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+
+        // TouchImageView thanks to https://github.com/MikeOrtiz/TouchImageView;
+        maven { url 'https://jitpack.io' }
     }
 }
 

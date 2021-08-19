@@ -1,6 +1,7 @@
 package com.mergenc.appcentmentorbudy.fragment
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -25,6 +26,8 @@ import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.detailed_image.*
+import kotlinx.android.synthetic.main.detailed_image.view.*
 import kotlinx.android.synthetic.main.details_dialog.*
 import kotlinx.android.synthetic.main.details_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -87,21 +90,14 @@ class FeedFragment : Fragment() {
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 // Inflate dialog;
-                val mDialogView =
-                    LayoutInflater.from(requireContext()).inflate(R.layout.details_dialog, null)
-                // Dialog builder;
-                val mBuilder = AlertDialog.Builder(requireContext())
-                    .setView(mDialogView)
-                    .setTitle(tempGalleryImageArrayList[position].title)
+                val mDialogView =Dialog(requireContext(), android.R.style.Theme_Material_NoActionBar)
+                mDialogView.setContentView(R.layout.detailed_image)
 
-                val mAlertDialog = mBuilder.show()
+                Picasso.get().load(tempGalleryImageArrayList[position].imageURL).resize(1000, 1000)
+                    .into(mDialogView.imageViewDetailed)
 
-                Picasso.get().load(tempGalleryImageArrayList[position].imageURL).resize(500, 500)
-                    .into(mDialogView.imageViewDetails)
-                mDialogView.textViewTitleDetails.text = tempGalleryImageArrayList[position].title
-                mDialogView.textViewDescriptionDetails.text = tempGalleryImageArrayList[position].description
+                mDialogView.show()
             }
-
         })
     }
 
