@@ -12,4 +12,5 @@
     <string name="recyclerview_row_imageview">Recyclerview row image</string>
     <string name="feed_title">Title</string>
     <string name="feed_description">Description</string>
+    <string name="resize">resize</string>
 </resources>

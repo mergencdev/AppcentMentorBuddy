@@ -18,6 +18,7 @@ import android.widget.Adapter
 //import android.widget.SearchView
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -87,6 +88,21 @@ class FeedFragment : Fragment() {
         floatingActionButton.setOnClickListener {
             val intent = Intent(activity, UploadActivity::class.java)
             activity?.startActivity(intent)
+        }
+
+        // resize images (FAB onClick);
+        var count = 0
+        fabResize.setOnClickListener {
+            if (count % 2 == 0) {
+                //titleCardView.visibility = View.GONE
+                //descriptionCardView.visibility = View.GONE
+                    
+                count++
+            } else {
+                //titleCardView.visibility = View.VISIBLE
+                //descriptionCardView.visibility = View.VISIBLE
+                count = 0
+            }
         }
 
         getData()

@@ -9,31 +9,33 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewRow"
         android:layout_width="175dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:cardBackgroundColor="@color/myGrey"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:id="@+id/galleryLinearLayout"
-            android:layout_width="175dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageViewRow"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:contentDescription="@string/recyclerview_row_imageview"
                 android:src="@drawable/image_gallery" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/titleCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp">
 
@@ -49,10 +51,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/descriptionCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp">
 

@@ -58,6 +58,19 @@
             android:src="@drawable/my_plus"
             app:backgroundTint="@color/myRed" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabResize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="105dp"
+            android:clickable="true"
+            android:contentDescription="@string/resize"
+            android:focusable="true"
+            android:src="@drawable/resize"
+            app:backgroundTint="@color/white" />
 
     </RelativeLayout>
 
