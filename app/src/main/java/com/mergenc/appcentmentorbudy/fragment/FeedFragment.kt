@@ -2,8 +2,16 @@ package com.mergenc.appcentmentorbudy.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Adapter
@@ -25,13 +33,13 @@ import com.mergenc.appcentmentorbudy.activity.UploadActivity
 import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import com.ortiz.touchview.TouchImageView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detailed_image.*
 import kotlinx.android.synthetic.main.detailed_image.view.*
-import kotlinx.android.synthetic.main.details_dialog.*
-import kotlinx.android.synthetic.main.details_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.images_row.*
+import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -71,6 +79,10 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Share image via Picasso;
+        val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+
         // open UploadActivity inside of FeedFragment
         floatingActionButton.setOnClickListener {
             val intent = Intent(activity, UploadActivity::class.java)
@@ -99,6 +111,7 @@ class FeedFragment : Fragment() {
 
                 mDialogView.show()
 
+                // imageView onClick;
                 var count = 1
                 mDialogView.imageViewDetailed.setOnClickListener {
                     if (count % 2 != 0) {
@@ -109,8 +122,38 @@ class FeedFragment : Fragment() {
                         count = 1
                     }
                 }
+
+                // Share button onClick;
+                mDialogView.buttonShare.setOnClickListener {
+                    val image: Bitmap? = getBitmapFromView(mDialogView.imageViewDetailed)
+
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.type = "image/*"
+                    shareIntent.putExtra(
+                        Intent.EXTRA_STREAM,
+                        getImageUri(requireContext(), image!!)
+                    )
+                    startActivity(Intent.createChooser(shareIntent, "Share via"))
+                }
             }
         })
+    }
+
+    // For share imageView;
+    private fun getBitmapFromView(view: TouchImageView): Bitmap? {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    // For share imageView;
+    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
     }
 
     private fun getData() {
