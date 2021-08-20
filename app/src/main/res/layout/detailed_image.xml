@@ -48,7 +48,7 @@
                     app:cardCornerRadius="15dp">
 
                     <Button
-                        android:id="@+id/buttonDelete"
+                        android:id="@+id/buttonTrash"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"

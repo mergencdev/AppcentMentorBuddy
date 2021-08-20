@@ -22,6 +22,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -39,6 +40,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detailed_image.*
 import kotlinx.android.synthetic.main.detailed_image.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.fragment_trash.*
 import kotlinx.android.synthetic.main.images_row.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -94,13 +96,13 @@ class FeedFragment : Fragment() {
         var count = 0
         fabResize.setOnClickListener {
             if (count % 2 == 0) {
-                //titleCardView.visibility = View.GONE
-                //descriptionCardView.visibility = View.GONE
-                    
+                titleCardView.visibility = View.GONE
+                descriptionCardView.visibility = View.GONE
+
                 count++
             } else {
-                //titleCardView.visibility = View.VISIBLE
-                //descriptionCardView.visibility = View.VISIBLE
+                titleCardView.visibility = View.VISIBLE
+                descriptionCardView.visibility = View.VISIBLE
                 count = 0
             }
         }
@@ -151,6 +153,11 @@ class FeedFragment : Fragment() {
                     )
                     startActivity(Intent.createChooser(shareIntent, "Share via"))
                 }
+
+                // Trash button onClick - sends the selected item to the Trash;
+                //mDialogView.buttonTrash.setOnClickListener {
+
+                //}
             }
         })
     }

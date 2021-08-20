@@ -1,9 +1,13 @@
 package com.mergenc.appcentmentorbudy.activity
 
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,6 +16,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -40,6 +46,12 @@ class UploadActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder: Notification.Builder
+    private val channelID = "com.mergenc.appcentmentorbudy.activity"
+    private val notificationDescription = "Image uploaded successfully."
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +99,51 @@ class UploadActivity : AppCompatActivity() {
                     galleryMap.put("date", Timestamp.now())
 
                     firestore.collection("Images").add(galleryMap).addOnSuccessListener {
-                        Toast.makeText(this, "Uploaded succesfully.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Image uploaded succesfully.", Toast.LENGTH_SHORT)
+                            .show()
+
+                        // Send local notification;
+                        notificationManager =
+                            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                        val intent = Intent(this, LauncherActivity::class.java)
+                        val pendingIntent = PendingIntent.getActivity(
+                            this,
+                            0,
+                            intent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            notificationChannel = NotificationChannel(
+                                channelID,
+                                notificationDescription,
+                                NotificationManager.IMPORTANCE_DEFAULT
+                            )
+                            notificationChannel.enableLights(true)
+                            //notificationChannel.lightColor =
+                            notificationChannel.enableVibration(false)
+                            notificationManager.createNotificationChannel(notificationChannel)
+
+                            builder = Notification.Builder(this, channelID)
+                                .setContentTitle("Uploaded")
+                                .setContentText(notificationDescription)
+                                .setSmallIcon(android.R.drawable.stat_sys_upload_done)
+                                .setContentIntent(pendingIntent)
+                        } else {
+                            builder = Notification.Builder(this)
+                                .setContentTitle("Uploaded")
+                                .setContentText(notificationDescription)
+                                .setLargeIcon(
+                                    BitmapFactory.decodeResource(
+                                        this.resources,
+                                        R.drawable.appcent_mentorbuddy
+                                    )
+                                )
+                                .setSmallIcon(android.R.drawable.stat_sys_upload_done)
+                                .setContentIntent(pendingIntent)
+                        }
+
+                        notificationManager.notify(42, builder.build())
+
                         finish()
 
                     }.addOnFailureListener {
