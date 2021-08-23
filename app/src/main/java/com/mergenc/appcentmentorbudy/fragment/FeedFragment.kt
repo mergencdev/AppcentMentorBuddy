@@ -1,5 +1,6 @@
 package com.mergenc.appcentmentorbudy.fragment
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -168,32 +169,45 @@ class FeedFragment : Fragment() {
                     firestore.collection("Trash").add(trashMap)
 
                     // Delete selected image from collection: Images;
-                    firestore.collection("Images").whereEqualTo("title", imageTitle).get()
-                        .addOnCompleteListener {
+                    var deleteDialogBuilder = AlertDialog.Builder(activity)
+                    deleteDialogBuilder.setTitle("Confirm delete")
+                    deleteDialogBuilder.setMessage("Are you sure you want to delete this image?")
+                    deleteDialogBuilder.setPositiveButton("Yes") { dialog, id ->
 
-                            if (it.isSuccessful && !(it.getResult()?.isEmpty!!)) {
-                                val documentSnapshot = it.getResult()!!.documents.get(0)
-                                val docID = documentSnapshot.id
-                                firestore.collection("Images")
-                                    .document(docID).delete().addOnSuccessListener {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Successfully deleted.",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
+                        firestore.collection("Images").whereEqualTo("title", imageTitle).get()
+                            .addOnCompleteListener {
 
-                                        mDialogView.dismiss()
-                                    }.addOnFailureListener {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            it.localizedMessage,
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
-                                    }
+                                if (it.isSuccessful && !(it.getResult()?.isEmpty!!)) {
+                                    val documentSnapshot = it.getResult()!!.documents.get(0)
+                                    val docID = documentSnapshot.id
+                                    firestore.collection("Images")
+                                        .document(docID).delete().addOnSuccessListener {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Successfully deleted.",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+
+                                            mDialogView.dismiss()
+                                        }.addOnFailureListener {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.localizedMessage,
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                }
                             }
-                        }
+                        dialog.cancel()
+                    }
+                    deleteDialogBuilder.setNegativeButton("No") { dialog, id ->
+                        dialog.cancel()
+                    }
+
+                    val deleteAlert = deleteDialogBuilder.create()
+                    deleteAlert.show()
                 }
             }
         })
