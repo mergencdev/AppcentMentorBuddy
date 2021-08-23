@@ -101,6 +101,7 @@ class UploadActivity : AppCompatActivity() {
                     firestore.collection("Images").add(galleryMap).addOnSuccessListener {
                         Toast.makeText(this, "Image uploaded succesfully.", Toast.LENGTH_SHORT)
                             .show()
+                        println("URI LOG: $selectedImage")
 
                         // Send local notification;
                         notificationManager =
@@ -172,7 +173,6 @@ class UploadActivity : AppCompatActivity() {
                 val bitmapFromCamera = data.extras?.get("data") as Bitmap
                 imageView.setImageBitmap(bitmapFromCamera)
             }
-
         }
     }
 

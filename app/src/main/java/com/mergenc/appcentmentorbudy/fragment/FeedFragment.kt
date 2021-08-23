@@ -1,35 +1,32 @@
 package com.mergenc.appcentmentorbudy.fragment
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
 import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Adapter
 //import android.widget.SearchView
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Timestamp.now
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.Timestamp
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.mergenc.appcentmentorbudy.R
 import com.mergenc.appcentmentorbudy.activity.UploadActivity
 import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
@@ -49,7 +46,8 @@ import kotlin.collections.ArrayList
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
 
     private lateinit var galleryImageArrayList: ArrayList<GalleryImage>
     private lateinit var tempGalleryImageArrayList: ArrayList<GalleryImage>
@@ -60,7 +58,8 @@ class FeedFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         auth = Firebase.auth
-        db = Firebase.firestore
+        firestore = Firebase.firestore
+        storage = Firebase.storage
 
         galleryImageArrayList = ArrayList<GalleryImage>()
         tempGalleryImageArrayList = ArrayList<GalleryImage>()
@@ -155,9 +154,17 @@ class FeedFragment : Fragment() {
                 }
 
                 // Trash button onClick - sends the selected item to the Trash;
-                //mDialogView.buttonTrash.setOnClickListener {
-
-                //}
+                mDialogView.buttonTrash.setOnClickListener {
+                    val trashMap = hashMapOf<String, Any>()
+                    trashMap.put("downloadURL", tempGalleryImageArrayList[position].imageURL)
+                    trashMap.put("title", tempGalleryImageArrayList[position].title)
+                    trashMap.put("description", tempGalleryImageArrayList[position].description)
+                    trashMap.put("date", now())
+                    
+                    firestore.collection("Trash").add(trashMap).addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Image deleted.", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         })
     }
@@ -181,7 +188,7 @@ class FeedFragment : Fragment() {
 
     private fun getData() {
         // orderBy("date", Query.Direction.ASCENDING) function can sort images by date;
-        db.collection("Images").orderBy("date", Query.Direction.ASCENDING)
+        firestore.collection("Images").orderBy("date", Query.Direction.ASCENDING)
             .addSnapshotListener { value, error ->
 
                 if (error != null) {
