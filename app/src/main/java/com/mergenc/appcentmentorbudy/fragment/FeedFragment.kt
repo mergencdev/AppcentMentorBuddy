@@ -269,6 +269,10 @@ class FeedFragment : Fragment() {
 
                             // data updated, show new one;
                             imageAdapter.notifyDataSetChanged()
+                        } else {
+                            // Make "No feed available." text invisible;
+                            // Feed available now;
+                            feedLinearLayout.visibility = View.VISIBLE
                         }
                     }
                 }

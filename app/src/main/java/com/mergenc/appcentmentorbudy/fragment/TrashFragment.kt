@@ -6,13 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mergenc.appcentmentorbudy.R
+import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
+import com.mergenc.appcentmentorbudy.adapter.TrashRVAdapter
+import com.mergenc.appcentmentorbudy.databinding.FragmentTrashBinding
 import com.mergenc.appcentmentorbudy.model.TrashImage
+import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.fragment_trash.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TrashFragment : Fragment() {
 
@@ -20,6 +29,9 @@ class TrashFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
 
     private lateinit var trashArrayList: ArrayList<TrashImage>
+
+    private lateinit var trashRVAdapter: TrashRVAdapter
+    private lateinit var binding: FragmentTrashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +47,25 @@ class TrashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trash, container, false)
+        //return inflater.inflate(R.layout.fragment_trash, container, false)
+
+        setHasOptionsMenu(true)
+
+        binding = FragmentTrashBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getTrashData()
+
+        binding.trashRecyclerView.layoutManager =
+            GridLayoutManager(requireActivity(), 2, RecyclerView.VERTICAL, false)
+
+        val adapter = TrashRVAdapter(trashArrayList)
+        trashRVAdapter = adapter
+        binding.trashRecyclerView.adapter = trashRVAdapter
     }
 
     // Get trash data from collection: Trash from Firestore;
@@ -53,21 +77,40 @@ class TrashFragment : Fragment() {
             } else {
                 if (value != null) {
                     if (!value.isEmpty) {
+
+                        // Make "No feed available." text invisible;
+                        // Feed available now;
+                        trashLinearLayout.visibility = View.INVISIBLE // from fragment_trash.xml;
+
                         val documents = value.documents
+
+                        trashArrayList.clear()
 
                         for (document in documents) {
                             val trashTitle = document.get("title") as String
                             val trashDescription = document.get("description") as String
                             val trashDownloadURL = document.get("downloadURL") as String
+                            val trashDate = document.getDate("date") as Date
 
-                            println("TRASH: $trashDescription")
+                            //println("TRASH: $trashDescription") // it's working;
 
                             val trashImage =
-                                TrashImage(trashDescription, trashDownloadURL, trashTitle)
+                                TrashImage(
+                                    trashDescription,
+                                    trashDownloadURL,
+                                    trashTitle,
+                                    trashDate
+                                )
 
                             // Add all images to ArrayList;
                             trashArrayList.add(trashImage)
                         }
+
+                        trashRVAdapter.notifyDataSetChanged()
+                    } else {
+                        // Make "No feed available." text invisible;
+                        // Feed available now;
+                        trashLinearLayout.visibility = View.VISIBLE
                     }
                 }
             }

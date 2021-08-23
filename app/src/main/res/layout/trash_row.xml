@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/trashRowGridLayout"
     android:layout_width="175dp"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:layout_margin="25dp"
     android:orientation="horizontal">
 
@@ -12,7 +12,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardBackgroundColor="@color/myGrey"
+        app:cardBackgroundColor="@color/black"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
@@ -73,6 +73,26 @@
 
                 </TextView>
 
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dateCardViewTrash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/textViewDateTrashRow"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="@string/trash_date"
+                    android:textSize="15sp" />
             </androidx.cardview.widget.CardView>
 
 

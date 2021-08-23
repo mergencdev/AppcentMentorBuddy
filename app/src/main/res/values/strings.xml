@@ -13,4 +13,5 @@
     <string name="feed_title">Title</string>
     <string name="feed_description">Description</string>
     <string name="resize">resize</string>
+    <string name="trash_date">Date</string>
 </resources>
