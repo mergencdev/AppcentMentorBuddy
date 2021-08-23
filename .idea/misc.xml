@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/activity_main.xml" value="0.10182370820668693" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/activity_upload.xml" value="0.10182370820668693" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/detailed_image.xml" value="0.10182370820668693" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/fragment_feed.xml" value="0.10182370820668693" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/fragment_trash.xml" value="0.10182370820668693" />
       </map>
     </option>
   </component>

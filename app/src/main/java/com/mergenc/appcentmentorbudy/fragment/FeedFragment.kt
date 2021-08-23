@@ -118,6 +118,9 @@ class FeedFragment : Fragment() {
         // RecyclerView item on click function here;
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
+                val imageTitle = tempGalleryImageArrayList[position].title
+                println(imageTitle)
+
                 // Inflate dialog;
                 val mDialogView =
                     Dialog(requireContext(), android.R.style.Theme_Material_NoActionBar)
@@ -160,10 +163,37 @@ class FeedFragment : Fragment() {
                     trashMap.put("title", tempGalleryImageArrayList[position].title)
                     trashMap.put("description", tempGalleryImageArrayList[position].description)
                     trashMap.put("date", now())
-                    
-                    firestore.collection("Trash").add(trashMap).addOnSuccessListener {
-                        Toast.makeText(requireContext(), "Image deleted.", Toast.LENGTH_SHORT).show()
-                    }
+
+                    // Send selected image to collection: Trash;
+                    firestore.collection("Trash").add(trashMap)
+
+                    // Delete selected image from collection: Images;
+                    firestore.collection("Images").whereEqualTo("title", imageTitle).get()
+                        .addOnCompleteListener {
+
+                            if (it.isSuccessful && !(it.getResult()?.isEmpty!!)) {
+                                val documentSnapshot = it.getResult()!!.documents.get(0)
+                                val docID = documentSnapshot.id
+                                firestore.collection("Images")
+                                    .document(docID).delete().addOnSuccessListener {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Successfully deleted.",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+
+                                        mDialogView.dismiss()
+                                    }.addOnFailureListener {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            it.localizedMessage,
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                    }
+                            }
+                        }
                 }
             }
         })
