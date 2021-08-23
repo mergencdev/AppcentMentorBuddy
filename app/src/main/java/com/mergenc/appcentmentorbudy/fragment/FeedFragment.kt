@@ -165,14 +165,14 @@ class FeedFragment : Fragment() {
                     trashMap.put("description", tempGalleryImageArrayList[position].description)
                     trashMap.put("date", now())
 
-                    // Send selected image to collection: Trash;
-                    firestore.collection("Trash").add(trashMap)
-
                     // Delete selected image from collection: Images;
                     var deleteDialogBuilder = AlertDialog.Builder(activity)
                     deleteDialogBuilder.setTitle("Confirm delete")
                     deleteDialogBuilder.setMessage("Are you sure you want to delete this image?")
                     deleteDialogBuilder.setPositiveButton("Yes") { dialog, id ->
+
+                        // Send selected image to collection: Trash;
+                        firestore.collection("Trash").add(trashMap)
 
                         firestore.collection("Images").whereEqualTo("title", imageTitle).get()
                             .addOnCompleteListener {
