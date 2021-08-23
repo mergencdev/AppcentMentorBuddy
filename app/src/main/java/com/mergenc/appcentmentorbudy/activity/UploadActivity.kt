@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
@@ -30,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.mergenc.appcentmentorbudy.R
 import com.mergenc.appcentmentorbudy.databinding.ActivityUploadBinding
+import com.mergenc.appcentmentorbudy.model.LoadingDialog
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.activity_upload.imageView
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -71,6 +73,15 @@ class UploadActivity : AppCompatActivity() {
 
     // Upload button onClick ("Upload");
     fun upload(view: View) {
+        val loading = LoadingDialog(this)
+        loading.startLoading()
+        val handler = Handler()
+        handler.post(object : Runnable {
+            override fun run() {
+            }
+
+        })
+
         // Make "No feed available." text invisible.
         // Feed available now;
         //feedLinearLayout.visibility = View.INVISIBLE
