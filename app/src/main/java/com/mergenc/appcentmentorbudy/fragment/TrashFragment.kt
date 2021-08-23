@@ -33,6 +33,8 @@ class TrashFragment : Fragment() {
     private lateinit var trashRVAdapter: TrashRVAdapter
     private lateinit var binding: FragmentTrashBinding
 
+    var trashCounter = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -77,6 +79,8 @@ class TrashFragment : Fragment() {
             } else {
                 if (value != null) {
                     if (!value.isEmpty) {
+                        //println("valuesize: ${value.size()}")
+                            clearTrash(value.size())
 
                         // Make "No feed available." text invisible;
                         // Feed available now;
@@ -112,6 +116,18 @@ class TrashFragment : Fragment() {
                         // Feed available now;
                         trashLinearLayout.visibility = View.VISIBLE
                     }
+                }
+            }
+        }
+    }
+
+    fun clearTrash(valueSize: Int) {
+        //trashCounter++
+        println("TRASH SIZE: ${valueSize}")
+        if (valueSize == 10) {
+            db.collection("Trash").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    db.collection("Trash").document(document.id).delete()
                 }
             }
         }

@@ -21,7 +21,7 @@ class TrashRVAdapter(private val trashList: ArrayList<TrashImage>) :
     }
 
     override fun onBindViewHolder(holder: TrashHolder, position: Int) {
-        val deletionDate = "Deletion date: ${trashList.get(position).date.toString()}"
+        val deletionDate = "Deletion time: ${trashList.get(position).date.toString()}"
 
         holder.binding.textViewTitleTrashRow.text = trashList.get(position).title
         holder.binding.textViewDescriptionTrashRow.text = trashList.get(position).description
