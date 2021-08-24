@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -80,7 +81,7 @@ class TrashFragment : Fragment() {
                 if (value != null) {
                     if (!value.isEmpty) {
                         //println("valuesize: ${value.size()}")
-                            clearTrash(value.size())
+                        clearTrash(value.size())
 
                         // Make "No feed available." text invisible;
                         // Feed available now;
@@ -112,8 +113,9 @@ class TrashFragment : Fragment() {
 
                         trashRVAdapter.notifyDataSetChanged()
                     } else {
-                        // Make "No feed available." text invisible;
-                        // Feed available now;
+                        fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+                        // Make "The trash is empty." text visible;
+                        // The trash is empty now;
                         trashLinearLayout.visibility = View.VISIBLE
                     }
                 }
@@ -124,12 +126,14 @@ class TrashFragment : Fragment() {
     fun clearTrash(valueSize: Int) {
         //trashCounter++
         println("TRASH SIZE: ${valueSize}")
-        if (valueSize == 10) {
+        if (valueSize == 3) {
             db.collection("Trash").get().addOnSuccessListener { result ->
                 for (document in result) {
                     db.collection("Trash").document(document.id).delete()
                 }
             }
         }
+
+        requireFragmentManager().beginTransaction().detach(this).attach(this).commit()
     }
 }

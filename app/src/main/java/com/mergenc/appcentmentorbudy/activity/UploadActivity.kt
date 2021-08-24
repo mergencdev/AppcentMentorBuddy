@@ -1,5 +1,6 @@
 package com.mergenc.appcentmentorbudy.activity
 
+import android.animation.ObjectAnimator
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -35,6 +36,7 @@ import com.mergenc.appcentmentorbudy.model.LoadingDialog
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.activity_upload.imageView
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.loading_item.*
 import java.util.*
 import java.util.jar.Manifest
 
@@ -128,7 +130,7 @@ class UploadActivity : AppCompatActivity() {
                             notificationChannel = NotificationChannel(
                                 channelID,
                                 notificationDescription,
-                                NotificationManager.IMPORTANCE_DEFAULT
+                                NotificationManager.IMPORTANCE_HIGH
                             )
                             notificationChannel.enableLights(true)
                             //notificationChannel.lightColor =
