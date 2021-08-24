@@ -70,6 +70,72 @@ Open in Android Studio and run.
         2. Ensure the code is clean, understandable with comments wherever required, reusable, and bugfree.
         3. You can use any third-party libraries or APIs to get dummy images or add a JSON file with image
         URLs in the project
+
+
+## Resources I used during development (Many thanks to those who contributed :heart:)
+
+https://developer.android.com/topic/libraries/view-binding
+
+https://developer.android.com/guide/navigation/navigation-getting-started#kts
+
+https://developer.android.com/guide/topics/ui/layout/cardview
+
+https://github.com/hdodenhof/CircleImageView
+
+https://stackoverflow.com/questions/40057798/firebase-token-authentication-error
+
+https://firebase.google.com/docs/auth/android/custom-auth
+
+https://firebase.google.com/docs/storage/android/upload-files#kotlin+ktx
+
+https://stackoverflow.com/questions/49793203/firebase-storage-error-error-getting-token
+
+https://stackoverflow.com/questions/54527868/how-to-get-the-date-and-time-when-uploading-image-to-firebase
+
+https://developer.android.com/topic/libraries/view-binding#kotlin
+
+https://www.geeksforgeeks.org/view-binding-with-fragments-in-android-jetpack/
+
+https://stackoverflow.com/questions/40587168/simple-android-grid-example-using-recyclerview-with-gridlayoutmanager-like-the
+
+https://www.geeksforgeeks.org/view-binding-with-fragments-in-android-jetpack/
+
+https://square.github.io/picasso/
+
+https://github.com/bumptech/glide
+
+https://stackoverflow.com/questions/51344714/how-to-create-option-menu-in-fragment/51344762
+
+https://github.com/MikeOrtiz/TouchImageView
+
+https://www.tutorialspoint.com/how-to-set-dialog-to-show-with-full-screen-in-android-using-kotlin
+
+https://developer.android.com/guide/topics/ui/dialogs#AlertDialog
+
+https://developer.android.com/training/sharing/send
+
+https://stackoverflow.com/questions/62499608/kotlin-how-to-pass-data-from-recyclerview-in-fragment-to-another-fragment-using
+
+https://stackoverflow.com/questions/53694594/changing-visibility-of-a-recyclerview-item-changes-other-items-visibility
+
+https://developer.android.com/training/notify-user/build-notification
+
+https://stackoverflow.com/questions/2620444/how-to-prevent-a-dialog-from-closing-when-a-button-is-clicked
+
+https://firebase.google.com/docs/firestore/query-data/get-data#kotlin+ktx_4
+
+https://firebase.google.com/docs/firestore/manage-data/delete-data#kotlin+ktx_2
+
+https://stackoverflow.com/questions/54144543/firestore-google-cloud-timestamp-parsing?rq=1
+
+https://stackoverflow.com/questions/49488312/androidstudio-import-svg-with-error-mask-is-not-supported
+
+https://svg2vector.com/
+
+https://developer.android.com/studio/write/vector-asset-studio#svg
+
+https://stackoverflow.com/questions/42595335/how-to-implement-android-splash-screen-using-svg-instead-of-png
+
 ## Colors
 | Hex                                                              |
 ------------------------------------------------------------------ |
