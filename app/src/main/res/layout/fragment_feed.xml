@@ -56,7 +56,7 @@
             android:contentDescription="@string/add_image"
             android:focusable="true"
             android:src="@drawable/my_plus"
-            app:backgroundTint="@color/myRed" />
+            app:backgroundTint="@color/AppcentOrange" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabResize"
@@ -70,7 +70,7 @@
             android:contentDescription="@string/resize"
             android:focusable="true"
             android:src="@drawable/resize"
-            app:backgroundTint="@color/white" />
+            app:backgroundTint="@color/myGrey" />
 
     </RelativeLayout>
 

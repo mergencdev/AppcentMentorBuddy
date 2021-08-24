@@ -3,7 +3,7 @@
     package="com.mergenc.appcentmentorbudy">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +12,21 @@
         android:roundIcon="@drawable/appcent_mentorbuddy"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppcentMentorBudy">
-        <activity android:name=".activity.UploadActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/SplashScreenTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity android:name=".activity.UploadActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

@@ -127,7 +127,7 @@ class FeedFragment : Fragment() {
                     Dialog(requireContext(), android.R.style.Theme_Material_NoActionBar)
                 mDialogView.setContentView(R.layout.detailed_image)
 
-                Picasso.get().load(tempGalleryImageArrayList[position].imageURL).resize(1000, 1000)
+                Picasso.get().load(tempGalleryImageArrayList[position].imageURL)
                     .into(mDialogView.imageViewDetailed)
 
                 mDialogView.show()

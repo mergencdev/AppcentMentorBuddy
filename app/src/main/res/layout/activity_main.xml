@@ -16,7 +16,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabBackground="@color/myRed"
+            app:tabBackground="@color/AppcentBlue"
             app:tabGravity="fill"
             app:tabIconTint="@color/myGrey"
             app:tabInlineLabel="true"

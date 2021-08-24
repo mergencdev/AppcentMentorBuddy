@@ -2,17 +2,19 @@
     <!-- Base application theme. -->
     <style name="Theme.AppcentMentorBudy" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/myRed</item>
-        <item name="colorPrimaryVariant">@color/myDarkRed</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/AppcentBlue</item>
+        <item name="colorPrimaryVariant">@color/AppcentOrange</item>
+        <item name="colorOnPrimary">@color/AppcentGrey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/myRed</item>
+        <item name="colorSecondaryVariant">@color/AppcentBlue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="AppcentMBTheme" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">10sp</item>

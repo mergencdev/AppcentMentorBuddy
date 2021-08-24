@@ -11,5 +11,8 @@
     <color name="myRed">#E20D00</color>
     <color name="myGrey">#D5D5D5</color>
     <color name="myDarkRed">#CB160C</color>
+
     <color name="AppcentBlue">#1E2C3F</color>
+    <color name="AppcentOrange">#FF7A00</color>
+    <color name="AppcentGrey">#BFC0C2</color>
 </resources>

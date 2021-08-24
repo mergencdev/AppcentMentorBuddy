@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/merge/.gradle/caches/transforms-2/files-2.1/3944ec0d281b325ac26f6ebd5abb91b1/core-3.1.0/res/drawable/md_transparent.xml" value="0.22552083333333334" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/drawable/ic_splash.xml" value="0.22552083333333334" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/drawable/ic_splash_screen.xml" value="0.22552083333333334" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/activity_main.xml" value="0.10182370820668693" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/activity_splash_screen.xml" value="0.1644021739130435" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/activity_upload.xml" value="0.10182370820668693" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/detailed_image.xml" value="0.10182370820668693" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/fragment_feed.xml" value="0.10182370820668693" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/fragment_trash.xml" value="0.10182370820668693" />
-        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/images_row.xml" value="0.1" />
+        <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/images_row.xml" value="0.5" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/loading_item.xml" value="0.25" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/layout/trash_row.xml" value="0.6802030456852792" />
         <entry key="..\:/personal/mergenc/work/kotlin-android/00B/AppcentMentorBudy/app/src/main/res/menu/menu_item.xml" value="0.1" />
