@@ -1,6 +1,5 @@
 package com.mergenc.appcentmentorbudy.activity
 
-import android.animation.ObjectAnimator
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -18,8 +17,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
@@ -38,7 +35,6 @@ import kotlinx.android.synthetic.main.activity_upload.imageView
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.loading_item.*
 import java.util.*
-import java.util.jar.Manifest
 
 class UploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadBinding // upload binding;

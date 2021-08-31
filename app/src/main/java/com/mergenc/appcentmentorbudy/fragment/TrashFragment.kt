@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -14,12 +13,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.mergenc.appcentmentorbudy.R
-import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.adapter.TrashRVAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentTrashBinding
 import com.mergenc.appcentmentorbudy.model.TrashImage
-import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.fragment_trash.*
 import java.util.*
 import kotlin.collections.ArrayList

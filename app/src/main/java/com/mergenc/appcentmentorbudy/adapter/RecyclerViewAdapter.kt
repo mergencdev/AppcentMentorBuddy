@@ -1,11 +1,7 @@
 package com.mergenc.appcentmentorbudy.adapter
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mergenc.appcentmentorbudy.databinding.ImagesRowBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage

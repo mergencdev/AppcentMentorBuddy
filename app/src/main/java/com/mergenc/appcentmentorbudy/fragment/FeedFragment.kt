@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp.now
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.Timestamp
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -36,9 +34,7 @@ import com.mergenc.appcentmentorbudy.model.GalleryImage
 import com.ortiz.touchview.TouchImageView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detailed_image.*
-import kotlinx.android.synthetic.main.detailed_image.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
-import kotlinx.android.synthetic.main.fragment_trash.*
 import kotlinx.android.synthetic.main.images_row.*
 import java.io.ByteArrayOutputStream
 import java.util.*
