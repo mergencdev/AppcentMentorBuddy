@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -81,4 +83,8 @@ dependencies {
 
     // TouchImageView thanks to https://github.com/MikeOrtiz/TouchImageView;
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
+
+    // Dependency injection with Hilt;
+    implementation 'com.google.dagger:hilt-android:2.38.1'
+    kapt 'com.google.dagger:hilt-android-compiler:2.38.1'
 }

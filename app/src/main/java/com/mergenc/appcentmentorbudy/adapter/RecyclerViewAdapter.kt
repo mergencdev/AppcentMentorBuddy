@@ -56,4 +56,11 @@ class RecyclerViewAdapter(
     override fun getItemCount(): Int {
         return imageList.size
     }
+
+    // refresh data;
+    fun updateImageList(newImageList: ArrayList<GalleryImage>) {
+        imageList.clear()
+        imageList.addAll(newImageList)
+        notifyDataSetChanged()
+    }
 }
