@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 //import android.widget.SearchView
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp.now
@@ -31,6 +33,7 @@ import com.mergenc.appcentmentorbudy.activity.UploadActivity
 import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import com.mergenc.appcentmentorbudy.viewmodel.FeedViewModel
 import com.ortiz.touchview.TouchImageView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detailed_image.*
@@ -50,6 +53,9 @@ class FeedFragment : Fragment() {
     private lateinit var tempGalleryImageArrayList: ArrayList<GalleryImage>
 
     private lateinit var imageAdapter: RecyclerViewAdapter
+
+    // ViewModel
+    private lateinit var viewModel : FeedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +83,10 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // ViewModel
+        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+        //viewModel.getData()
 
         // Share image via Picasso;
         val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
