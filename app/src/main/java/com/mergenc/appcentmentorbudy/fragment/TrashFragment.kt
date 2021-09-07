@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +17,8 @@ import com.google.firebase.ktx.Firebase
 import com.mergenc.appcentmentorbudy.adapter.TrashRVAdapter
 import com.mergenc.appcentmentorbudy.databinding.FragmentTrashBinding
 import com.mergenc.appcentmentorbudy.model.TrashImage
+import com.mergenc.appcentmentorbudy.viewmodel.FeedViewModel
+import com.mergenc.appcentmentorbudy.viewmodel.TrashViewModel
 import kotlinx.android.synthetic.main.fragment_trash.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,6 +34,8 @@ class TrashFragment : Fragment() {
     private lateinit var binding: FragmentTrashBinding
 
     var trashCounter = 0
+
+    private lateinit var viewModel: TrashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +70,10 @@ class TrashFragment : Fragment() {
         val adapter = TrashRVAdapter(trashArrayList)
         trashRVAdapter = adapter
         binding.trashRecyclerView.adapter = trashRVAdapter
+
+        viewModel = ViewModelProvider(this)[TrashViewModel::class.java]
+
+        observerLiveData()
     }
 
     // Get trash data from collection: Trash from Firestore;
@@ -83,29 +92,7 @@ class TrashFragment : Fragment() {
                         // Feed available now;
                         trashLinearLayout.visibility = View.INVISIBLE // from fragment_trash.xml;
 
-                        val documents = value.documents
-
-                        trashArrayList.clear()
-
-                        for (document in documents) {
-                            val trashTitle = document.get("title") as String
-                            val trashDescription = document.get("description") as String
-                            val trashDownloadURL = document.get("downloadURL") as String
-                            val trashDate = document.getDate("date") as Date
-
-                            //println("TRASH: $trashDescription") // it's working;
-
-                            val trashImage =
-                                TrashImage(
-                                    trashDescription,
-                                    trashDownloadURL,
-                                    trashTitle,
-                                    trashDate
-                                )
-
-                            // Add all images to ArrayList;
-                            trashArrayList.add(trashImage)
-                        }
+                        viewModel.receiveTrash(trashArrayList, value)
 
                         trashRVAdapter.notifyDataSetChanged()
                     } else {
@@ -131,5 +118,13 @@ class TrashFragment : Fragment() {
         }
 
         requireFragmentManager().beginTransaction().detach(this).attach(this).commit()
+    }
+
+    fun observerLiveData() {
+        viewModel.trashes.observe(viewLifecycleOwner, androidx.lifecycle.Observer { trashes ->
+            trashes?.let {
+                trashRVAdapter.updateTrashList(trashes)
+            }
+        })
     }
 }

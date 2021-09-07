@@ -36,4 +36,10 @@ class TrashRVAdapter(private val trashList: ArrayList<TrashImage>) :
     override fun getItemCount(): Int {
         return trashList.size
     }
+
+    fun updateTrashList(newTrashList: ArrayList<TrashImage>) {
+        trashList.clear()
+        trashList.addAll(newTrashList)
+        notifyDataSetChanged()
+    }
 }

@@ -1,20 +1,9 @@
 package com.mergenc.appcentmentorbudy.viewmodel
 
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
-import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
-import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedViewModel : ViewModel() {
     val images = MutableLiveData<ArrayList<GalleryImage>>()
