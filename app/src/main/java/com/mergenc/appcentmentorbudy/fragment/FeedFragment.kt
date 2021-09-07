@@ -55,7 +55,7 @@ class FeedFragment : Fragment() {
     private lateinit var imageAdapter: RecyclerViewAdapter
 
     // ViewModel
-    private lateinit var viewModel : FeedViewModel
+    private lateinit var viewModel: FeedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +83,6 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // ViewModel
-        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
-        //viewModel.getData()
 
         // Share image via Picasso;
         val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
@@ -217,6 +213,11 @@ class FeedFragment : Fragment() {
                 }
             }
         })
+
+        // ViewModel
+        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+
+        observerLiveData()
     }
 
     // For share imageView;
@@ -251,24 +252,7 @@ class FeedFragment : Fragment() {
                             // Feed available now;
                             feedLinearLayout.visibility = View.INVISIBLE
 
-                            val documents = value.documents
-
-                            // Clear arraylist to avoid image duplications;
-                            galleryImageArrayList.clear()
-                            tempGalleryImageArrayList.clear()
-
-                            for (document in documents) {
-                                //val date = document.get("date") as Date // Error on this line;
-                                val description = document.get("description") as String
-                                val imageURL = document.get("downloadURL") as String
-                                val title = document.get("title") as String
-
-                                //println(description)
-
-                                val galleryImage =
-                                    GalleryImage(/*date,*/ description, imageURL, title)
-                                galleryImageArrayList.add(galleryImage)
-                            }
+                            viewModel.receiveData(galleryImageArrayList, value)
 
                             // Search;
                             tempGalleryImageArrayList.addAll(galleryImageArrayList)
@@ -321,6 +305,14 @@ class FeedFragment : Fragment() {
         })
 
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    fun observerLiveData() {
+        viewModel.images.observe(viewLifecycleOwner, androidx.lifecycle.Observer { images ->
+            images?.let {
+                imageAdapter.updateImageList(images)
+            }
+        })
     }
 
 }

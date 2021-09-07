@@ -1,14 +1,43 @@
 package com.mergenc.appcentmentorbudy.viewmodel
 
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.mergenc.appcentmentorbudy.adapter.RecyclerViewAdapter
+import com.mergenc.appcentmentorbudy.databinding.FragmentFeedBinding
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedViewModel : ViewModel() {
     val images = MutableLiveData<ArrayList<GalleryImage>>()
 
-    fun getData() {
+    fun receiveData(galleryImageArrayList: ArrayList<GalleryImage>, value: QuerySnapshot) {
         // Firebase Firestore;
+        val documents = value.documents
 
+        // Clear arraylist to avoid image duplications;
+        galleryImageArrayList.clear()
+        //tempGalleryImageArrayList.clear()
+
+        for (document in documents) {
+            //val date = document.get("date") as Date // Error on this line;
+            val description = document.get("description") as String
+            val imageURL = document.get("downloadURL") as String
+            val title = document.get("title") as String
+
+            //println(description)
+
+            val galleryImage =
+                GalleryImage(/*date,*/ description, imageURL, title)
+            galleryImageArrayList.add(galleryImage)
+        }
     }
 }
