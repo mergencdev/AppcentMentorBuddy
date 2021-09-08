@@ -1,11 +1,15 @@
 package com.mergenc.appcentmentorbudy.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.QuerySnapshot
 import com.mergenc.appcentmentorbudy.model.GalleryImage
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FeedViewModel : ViewModel() {
+@HiltViewModel
+class FeedViewModel @Inject constructor() : ViewModel() {
     val images = MutableLiveData<ArrayList<GalleryImage>>()
 
     fun receiveData(galleryImageArrayList: ArrayList<GalleryImage>, value: QuerySnapshot) {

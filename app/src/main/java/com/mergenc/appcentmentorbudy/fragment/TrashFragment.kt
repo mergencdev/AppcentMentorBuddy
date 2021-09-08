@@ -19,10 +19,12 @@ import com.mergenc.appcentmentorbudy.databinding.FragmentTrashBinding
 import com.mergenc.appcentmentorbudy.model.TrashImage
 import com.mergenc.appcentmentorbudy.viewmodel.FeedViewModel
 import com.mergenc.appcentmentorbudy.viewmodel.TrashViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_trash.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class TrashFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth

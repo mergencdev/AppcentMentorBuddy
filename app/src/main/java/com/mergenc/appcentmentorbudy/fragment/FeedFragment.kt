@@ -12,11 +12,9 @@ import android.os.StrictMode
 import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
-//import android.widget.SearchView
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp.now
@@ -36,6 +34,7 @@ import com.mergenc.appcentmentorbudy.model.GalleryImage
 import com.mergenc.appcentmentorbudy.viewmodel.FeedViewModel
 import com.ortiz.touchview.TouchImageView
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.detailed_image.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.images_row.*
@@ -43,6 +42,7 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
     private lateinit var auth: FirebaseAuth
@@ -54,8 +54,12 @@ class FeedFragment : Fragment() {
 
     private lateinit var imageAdapter: RecyclerViewAdapter
 
-    // ViewModel
+    // ViewModel;
     private lateinit var viewModel: FeedViewModel
+
+    // Field Injection;
+    //@Inject
+    val feedVievModel: FeedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -215,7 +219,7 @@ class FeedFragment : Fragment() {
         })
 
         // ViewModel
-        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+        //feedVievModel = ViewModelProvider(this)[FeedViewModel::class.java]
 
         observerLiveData()
     }
@@ -252,7 +256,9 @@ class FeedFragment : Fragment() {
                             // Feed available now;
                             feedLinearLayout.visibility = View.INVISIBLE
 
-                            viewModel.receiveData(galleryImageArrayList, value)
+                            // Get data from viewModel
+                            //viewModel.receiveData(galleryImageArrayList, value)
+                            feedVievModel.receiveData(galleryImageArrayList, value)
 
                             // Search;
                             tempGalleryImageArrayList.addAll(galleryImageArrayList)
@@ -308,7 +314,7 @@ class FeedFragment : Fragment() {
     }
 
     fun observerLiveData() {
-        viewModel.images.observe(viewLifecycleOwner, androidx.lifecycle.Observer { images ->
+        feedVievModel.images.observe(viewLifecycleOwner, androidx.lifecycle.Observer { images ->
             images?.let {
                 imageAdapter.updateImageList(images)
             }
