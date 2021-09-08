@@ -4,10 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.QuerySnapshot
 import com.mergenc.appcentmentorbudy.model.TrashImage
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class TrashViewModel : ViewModel() {
+@HiltViewModel
+class TrashViewModel @Inject constructor() : ViewModel() {
     val trashes = MutableLiveData<ArrayList<TrashImage>>()
 
     fun receiveTrash(trashArrayList: ArrayList<TrashImage>, value: QuerySnapshot) {

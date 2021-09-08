@@ -54,10 +54,7 @@ class FeedFragment : Fragment() {
 
     private lateinit var imageAdapter: RecyclerViewAdapter
 
-    // ViewModel;
-    private lateinit var viewModel: FeedViewModel
-
-    // Field Injection;
+    // Field Injection for Feed;
     //@Inject
     val feedVievModel: FeedViewModel by viewModels()
 
@@ -255,6 +252,8 @@ class FeedFragment : Fragment() {
                             // Make "No feed available." text invisible;
                             // Feed available now;
                             feedLinearLayout.visibility = View.INVISIBLE
+
+                            galleryImageArrayList.clear()
 
                             // Get data from viewModel
                             //viewModel.receiveData(galleryImageArrayList, value)

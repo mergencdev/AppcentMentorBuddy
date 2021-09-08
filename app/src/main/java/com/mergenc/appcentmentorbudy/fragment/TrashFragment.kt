@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,8 @@ class TrashFragment : Fragment() {
 
     var trashCounter = 0
 
-    private lateinit var viewModel: TrashViewModel
+    // Field Injection for Trash;
+    val trashViewModel: TrashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,8 +75,6 @@ class TrashFragment : Fragment() {
         trashRVAdapter = adapter
         binding.trashRecyclerView.adapter = trashRVAdapter
 
-        viewModel = ViewModelProvider(this)[TrashViewModel::class.java]
-
         observerLiveData()
     }
 
@@ -90,11 +90,12 @@ class TrashFragment : Fragment() {
                         //println("valuesize: ${value.size()}")
                         clearTrash(value.size())
 
+                        trashArrayList.clear()
                         // Make "No feed available." text invisible;
                         // Feed available now;
                         trashLinearLayout.visibility = View.INVISIBLE // from fragment_trash.xml;
 
-                        viewModel.receiveTrash(trashArrayList, value)
+                        trashViewModel.receiveTrash(trashArrayList, value)
 
                         trashRVAdapter.notifyDataSetChanged()
                     } else {
@@ -123,7 +124,7 @@ class TrashFragment : Fragment() {
     }
 
     fun observerLiveData() {
-        viewModel.trashes.observe(viewLifecycleOwner, androidx.lifecycle.Observer { trashes ->
+        trashViewModel.trashes.observe(viewLifecycleOwner, androidx.lifecycle.Observer { trashes ->
             trashes?.let {
                 trashRVAdapter.updateTrashList(trashes)
             }
