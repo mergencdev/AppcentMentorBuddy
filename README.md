@@ -136,6 +136,8 @@ https://developer.android.com/studio/write/vector-asset-studio#svg
 
 https://stackoverflow.com/questions/42595335/how-to-implement-android-splash-screen-using-svg-instead-of-png
 
+https://developer.android.com/training/dependency-injection/hilt-android#groovy
+
 ## Colors
 | Hex                                                              |
 ------------------------------------------------------------------ |
